@@ -2,14 +2,18 @@
   "name": "idp-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://msseleznev.github.io/pet_project_vue",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "gh-pages": "^4.0.0",
     "node-sass": "^7.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
