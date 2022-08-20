@@ -16,5 +16,6 @@ export default {
   background: none;
   color: $primary;
   border: 1px solid $primary;
+  cursor: pointer;
 }
 </style>

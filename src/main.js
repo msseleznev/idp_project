@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import components from '@/components/UI/index';
+import router from '@/router/router';
 import App from './App.vue';
 
 const app = createApp(App);
@@ -7,4 +8,4 @@ const app = createApp(App);
 components.forEach(component => {
   app.component(component.name, component);
 });
-app.mount('#app');
+app.use(router).mount('#app');

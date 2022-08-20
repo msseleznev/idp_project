@@ -24,10 +24,8 @@
 </template>
 
 <script>
-import MyInput from '@/components/UI/MyInput';
 
 export default {
-  components: { MyInput },
   data() {
     return {
       post: {

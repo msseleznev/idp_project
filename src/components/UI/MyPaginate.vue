@@ -50,6 +50,6 @@ export default {
 }
 
 .currentPage {
-  background: $litePrimary;
+  background: $primaryLight;
 }
 </style>
