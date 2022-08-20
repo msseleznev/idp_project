@@ -2,6 +2,7 @@
     <div>
         <h1>Страница с постами</h1>
         <my-input
+            v-focus
             v-model="searchQuery"
             placeholder="Поиск..."
         />
@@ -31,7 +32,7 @@
             </h2>
         </div>
         <div
-            ref="observer"
+            v-intersection="loadMorePost"
             class="observer"
         />
     </div>
@@ -82,17 +83,6 @@ export default {
   watch: {},
   mounted() {
     this.fetchPosts();
-    const options = {
-      rootMargin: '0px',
-      threshold: 1.0
-    };
-    const callback = entries => {
-      if (entries[0].isIntersecting && this.currentPage < this.totalPages) {
-        this.loadMorePost();
-      }
-    };
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
   },
   methods: {
     createPost(post) {
