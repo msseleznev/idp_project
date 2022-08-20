@@ -20,6 +20,7 @@ module.exports = {
       svg: 'always',
       math: 'always'
     }],
+    'vue/no-v-model-argument': 'off',
     'vue/html-indent': [
       'error',
       4,
@@ -103,8 +104,8 @@ module.exports = {
       functions: 'never'
     }],
     'linebreak-style': ['error', 'windows'],
-    'no-console': 'error',
-    'no-debugger': 'error',
+    'no-console': 'off',
+    'no-debugger': 'off',
     'arrow-parens': ['error', 'as-needed'],
     'no-plusplus': 'off',
     'constructor-super': 'off',
