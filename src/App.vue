@@ -30,10 +30,9 @@
                 Загрузка...
             </h2>
         </div>
-        <my-paginate
-            :total-page="totalPage"
-            :current-page="currentPage"
-            @change="changePage"
+        <div
+            ref="observer"
+            class="observer"
         />
     </div>
 </template>
@@ -46,11 +45,9 @@ import MyButton from '@/components/UI/MyButton';
 import axios from 'axios';
 import MySelect from '@/components/UI/MySelect';
 import MyInput from '@/components/UI/MyInput';
-import MyPaginate from '@/components/UI/MyPaginate';
 
 export default {
   components: {
-    MyPaginate,
     MyInput,
     MySelect,
     MyButton,
@@ -67,7 +64,7 @@ export default {
       searchQuery: '',
       currentPage: 1,
       limitForPage: 10,
-      totalPage: 0,
+      totalPages: 0,
       sortOptions: [
         {
           value: 'title',
@@ -90,13 +87,20 @@ export default {
         .includes(this.searchQuery.toLowerCase()));
     }
   },
-  watch: {
-    currentPage() {
-      this.fetchPosts();
-    }
-  },
+  watch: {},
   mounted() {
     this.fetchPosts();
+    const options = {
+      rootMargin: '0px',
+      threshold: 1.0
+    };
+    const callback = entries => {
+      if (entries[0].isIntersecting && this.currentPage < this.totalPages) {
+        this.loadMorePost();
+      }
+    };
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
   methods: {
     createPost(post) {
@@ -122,12 +126,28 @@ export default {
               _limit: this.limitForPage
             }
           });
-        this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limitForPage);
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limitForPage);
         this.posts = response.data;
       } catch (e) {
         console.log(e);
       } finally {
         this.isPostLoading = false;
+      }
+    },
+    async loadMorePost() {
+      try {
+        this.currentPage += 1;
+        const response = await axios
+          .get('https://jsonplaceholder.typicode.com/posts', {
+            params: {
+              _page: this.currentPage,
+              _limit: this.limitForPage
+            }
+          });
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limitForPage);
+        this.posts = [...this.posts, ...response.data];
+      } catch (e) {
+        console.log(e);
       }
     }
   }
@@ -149,6 +169,10 @@ export default {
   margin: 15px 0;
   display: flex;
   justify-content: space-between;
+}
+
+.observer {
+  height: 30px;
 }
 
 </style>

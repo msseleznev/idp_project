@@ -5,7 +5,7 @@
             :class="{
                 'currentPage' : page === currentPage
             }"
-            v-for="page in totalPage"
+            v-for="page in totalPages"
             :key="page"
             @click="changePage(page)"
             @keydown="changePage(page)"
@@ -19,7 +19,7 @@
 export default {
   name: 'MyPaginate',
   props: {
-    totalPage: {
+    totalPages: {
       type: Number,
       required: true
     },
