@@ -10,11 +10,20 @@
             <my-button @click="$router.push('/posts')">
                 Посты
             </my-button>
-            <my-button @click="$router.push('/store')">
+            <my-button
+                style="margin-left: 10px"
+                @click="$router.push('/store')"
+            >
                 Store
             </my-button>
             <my-button
-                style="margin-left: 20px"
+                style="margin-left: 10px"
+                @click="$router.push('/composition')"
+            >
+                Composition
+            </my-button>
+            <my-button
+                style="margin-left: 40px"
                 @click="$router.push('/about')"
             >
                 О приложении
